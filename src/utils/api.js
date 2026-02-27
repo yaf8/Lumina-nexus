@@ -87,6 +87,7 @@ class ApiClient {
   }
 
   createEvent(eventData) {
+      console.log("Creating event with data:", eventData);
     return this.request('/events', {
       method: 'POST',
       body: eventData,
