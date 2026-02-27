@@ -1,0 +1,99 @@
+{
+  "app": {
+    "name": "Lumina Nexus",
+    "tagline": "ጽቡቕ ፍሉይ ነገራት ይረኽቡን ይፍጠሩን",
+    "description": "ናይ ፍሉይ ነገራት ምርካብ፣ ምፍጣርን ምምሕዳርን ፕሪሚየር ፕላትፎርምኩም"
+  },
+  "nav": {
+    "home": "መበገሲ",
+    "events": "ፍሉይ ነገራት",
+    "create": "ፍሉይ ነገር ፍጠር",
+    "dashboard": "ዳሽቦርድ",
+    "profile": "መለለዪ ገጽ",
+    "settings": "ቅጥዕታት",
+    "admin": "ኣድሚን",
+    "reviewer": "ኣረጋጋጺ",
+    "login": "እቶ",
+    "register": "ተመዝገብ",
+    "logout": "ውጽእ",
+    "search": "ፍሉይ ነገራት ድለ..."
+  },
+  "auth": {
+    "login": "እቶ",
+    "register": "ተመዝገብ",
+    "email": "ኢመይል",
+    "password": "መሕለፊ ቓል",
+    "firstName": "ሽም",
+    "lastName": "ሽም ኣቦ",
+    "phoneNumber": "ቁጽሪ ተልፎን",
+    "loginWithGoogle": "ብጉግል ቀጽል"
+  },
+  "events": {
+    "title": "ፍሉይ ነገራት",
+    "create": "ፍሉይ ነገር ፍጠር",
+    "upcoming": "ዝመጽኡ ፍሉይ ነገራት",
+    "popular": "ብዙሓት ዝፈትዉዎ ፍሉይ ነገራት",
+    "featured": "ዝተመረጹ ፍሉይ ነገራት",
+    "myEvents": "ናተይ ፍሉይ ነገራት",
+    "joined": "ዝተሳተፍክወን ፍሉይ ነገራት",
+    "favorites": "ዝፈትወን",
+    "noEvents": "ፍሉይ ነገራት ኣይተረኽቡን",
+    "filters": {
+      "all": "ኩሉ",
+      "online": "ኦንላይን",
+      "physical": "ኣካላዊ",
+      "free": "ነጻ",
+      "paid": "ዝኸፈል"
+    },
+    "details": {
+      "date": "ዕለት",
+      "time": "ግዜ",
+      "location": "ቦታ",
+      "organizer": "ዝዳለወ",
+      "attendees": "ተሳታፍያን",
+      "price": "ገንዘብ",
+      "free": "ነጻ",
+      "register": "ተመዝገብ",
+      "share": "ኣካፍል",
+      "addToCalendar": "ናብ ካሌንደር ወስኽ"
+    }
+  },
+  "dashboard": {
+    "title": "ዳሽቦርድ",
+    "overview": "ጠቅላላ እይታ",
+    "users": "ተጠቀምቲ",
+    "events": "ፍሉይ ነገራት",
+    "totalUsers": "ጠቅላላ ተጠቀምቲ",
+    "totalEvents": "ጠቅላላ ፍሉይ ነገራት",
+    "upcomingEvents": "ዝመጽኡ ፍሉይ ነገራት",
+    "pendingEvents": "ዝተረፉ ፍሉይ ነገራት"
+  },
+  "profile": {
+    "title": "መለለዪ ገጽ",
+    "personalInfo": "የግል ሓበሬታ",
+    "myEvents": "ናተይ ፍሉይ ነገራት",
+    "favorites": "ዝፈትወን",
+    "settings": "ቅጥዕታት",
+    "language": "ቋንቋ",
+    "theme": "ጭብጥ",
+    "light": "ብርሃን",
+    "dark": "ጸልማት"
+  },
+  "common": {
+    "save": "ኣቐምጥ",
+    "cancel": "ኣቋርጽ",
+    "delete": "ሰርዝ",
+    "edit": "ኣመሓይሽ",
+    "create": "ፍጠር",
+    "update": "ሓድስ",
+    "close": "ዕጾ",
+    "back": "ተመለስ",
+    "next": "ቀጽል",
+    "submit": "ኣቅርብ",
+    "loading": "ይጽዓን ኣሎ...",
+    "error": "ጌጋ",
+    "success": "ዕወት",
+    "yes": "እወ",
+    "no": "አይ"
+  }
+}

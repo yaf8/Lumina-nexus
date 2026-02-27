@@ -1,0 +1,99 @@
+{
+  "app": {
+    "name": "Lumina Nexus",
+    "tagline": "Ta'annoo fi Uumuu Ta'annoo Bareedaa",
+    "description": "Daangaa ta'annoo argachuu, uumuu fi to'annuuf daangaa keessan"
+  },
+  "nav": {
+    "home": "Seensa",
+    "events": "Ta'annoo",
+    "create": "Ta'annoo Uumuu",
+    "dashboard": "Daashboordii",
+    "profile": "Profaayilii",
+    "settings": "Setingii",
+    "admin": "Admin",
+    "reviewer": "Hordoffii",
+    "login": "Seeni",
+    "register": "Galmeessi",
+    "logout": "Ba'i",
+    "search": "Ta'annoo barbaadi..."
+  },
+  "auth": {
+    "login": "Seeni",
+    "register": "Galmeessi",
+    "email": "Imeelii",
+    "password": "Jecha Darbii",
+    "firstName": "Maqaa",
+    "lastName": "Maqaa Abbaa",
+    "phoneNumber": "Lakkof Bilbilaa",
+    "loginWithGoogle": "Google fayyadami"
+  },
+  "events": {
+    "title": "Ta'annoo",
+    "create": "Ta'annoo Uumuu",
+    "upcoming": "Ta'annoo Itti Fufiinsa Qaban",
+    "popular": "Ta'annoo Beekamoo",
+    "featured": "Ta'annoo Adda Ta'an",
+    "myEvents": "Ta'annoo Koo",
+    "joined": "Ta'annoo Makame",
+    "favorites": "Jaallatamoo",
+    "noEvents": "Ta'annoo hin argamne",
+    "filters": {
+      "all": "Hunda",
+      "online": "Onlaayinii",
+      "physical": "Qaama Qaamaa",
+      "free": "Bilisa",
+      "paid": "Kaffaltii Qabu"
+    },
+    "details": {
+      "date": "Guyyaa",
+      "time": "Sa'aatii",
+      "location": "Bakka",
+      "organizer": "Qopheessaa",
+      "attendees": "Hirmaattota",
+      "price": "Gatii",
+      "free": "Bilisa",
+      "register": "Galmeessi",
+      "share": "Qoodi",
+      "addToCalendar": "Agendaa Dabalii"
+    }
+  },
+  "dashboard": {
+    "title": "Daashboordii",
+    "overview": "Ilaalcha Waliigalaa",
+    "users": "Fayyadamaawwan",
+    "events": "Ta'annoo",
+    "totalUsers": "Waliigalaa Fayyadamaawwan",
+    "totalEvents": "Waliigalaa Ta'annoo",
+    "upcomingEvents": "Ta'annoo Itti Fufiinsa Qaban",
+    "pendingEvents": "Ta'annoo Eeggaman Jiran"
+  },
+  "profile": {
+    "title": "Profaayilii",
+    "personalInfo": "Odeeffannoo Dhuunfaa",
+    "myEvents": "Ta'annoo Koo",
+    "favorites": "Jaallatamoo",
+    "settings": "Setingii",
+    "language": "Afaan",
+    "theme": "Mata Duree",
+    "light": "Ifa",
+    "dark": "Dukkanaa"
+  },
+  "common": {
+    "save": "Ol Kaa'i",
+    "cancel": "Haqi",
+    "delete": "Haqi",
+    "edit": "Gulaali",
+    "create": "Uumuu",
+    "update": "Haaromsa",
+    "close": "Cufi",
+    "back": "Deebi'i",
+    "next": "Itti Fufi",
+    "submit": "Galchi",
+    "loading": "Daawwachaa jira...",
+    "error": "Dogoggora",
+    "success": "Milkaa'ina",
+    "yes": "Eeyyee",
+    "no": "Lakki"
+  }
+}
