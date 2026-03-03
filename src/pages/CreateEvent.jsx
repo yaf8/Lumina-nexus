@@ -107,6 +107,8 @@ export default function CreateEvent() {
         maxCapacity: formData.maxCapacity ? parseInt(formData.maxCapacity) : null,
       };
 
+      console.log("Submitting event with data:", eventData);
+
       const response = await api.createEvent(eventData);
       toast.success('Event created successfully! It will be reviewed shortly.');
       navigate(`/events/${response.data.event.slug}`);

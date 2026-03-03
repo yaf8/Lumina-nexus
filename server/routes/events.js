@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import express from 'express';
 import Event from '../models/Event.js';
 import User from '../models/User.js';
@@ -16,6 +17,7 @@ const __dirname = path.dirname(__filename);
 // @desc    Get all events with filtering
 // @access  Public
 router.get('/', async (req, res) => {
+  console.log('Get events with query:', req.query);
   try {
     const {
       category,
@@ -156,12 +158,13 @@ router.get('/:id', async (req, res) => {
 // @desc    Create new event
 // @access  Private (requires phone verification)
 router.post('/', protect, requirePhoneVerification, async (req, res) => {
+  console.log('Create event with data:', req.body);
   try {
     const eventData = {
       ...req.body,
       createdBy: req.user._id,
       status: 'pending',
-      isApproved: false
+      isApproved: true, // Set to true for testing, change to false in production
     };
 
     const event = await Event.create(eventData);

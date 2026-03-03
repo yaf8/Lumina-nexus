@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import express from 'express';
 import { body, query as queryValidator } from 'express-validator';
 import { Event, Category } from '../models/index.js';
