@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -17,14 +18,18 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const [featuredRes, upcomingRes, categoriesRes] = await Promise.all([
-          api.getEvents({ featured: true, limit: 3 }),
+          api.getEvents({ limit: 3 }),
           api.getEvents({ upcoming: true, limit: 6 }),
-          api.getCategories(),
+          // api.getCategories(),
         ]);
+
+        console.log('Featured Events:', featuredRes.data.events);
+        // console.log('Upcoming Events:', upcomingRes.data.events);
+        // console.log('Categories:', categoriesRes.data.categories);
 
         setFeaturedEvents(featuredRes.data.events);
         setUpcomingEvents(upcomingRes.data.events);
-        setCategories(categoriesRes.data.categories);
+        // setCategories(categoriesRes.data.categories);
       } catch (error) {
         console.error('Error fetching home data:', error);
       } finally {

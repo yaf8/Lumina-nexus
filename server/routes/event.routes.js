@@ -142,16 +142,7 @@ router.get(
 router.get(
   '/featured',
   asyncHandler(async (req, res) => {
-    const events = await Event.find({
-      isFeatured: true,
-      isApproved: true,
-      isExpired: false,
-      endDate: { $gte: new Date() }
-    })
-      .populate('organizer', 'firstName lastName avatar')
-      .populate('category', 'name slug color')
-      .sort('-favoriteCount')
-      .limit(6);
+    const events = await Event.find();
 
     res.status(200).json({
       status: 'success',

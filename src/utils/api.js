@@ -78,7 +78,7 @@ class ApiClient {
   // Events
   getEvents(params = {}) {
     // Axios handles query params automatically if passed in the 'params' property
-    return this.request('/events', { params });
+    return this.request('/events/featured', { params });
   }
 
   getEvent(slug) {
