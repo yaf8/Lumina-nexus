@@ -30,8 +30,7 @@ const categorySchema = new mongoose.Schema({
     type: String
   },
   parent: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
+    type: String,
     default: null
   },
   isActive: {

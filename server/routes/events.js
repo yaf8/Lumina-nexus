@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import express from 'express';
 import Event from '../models/Event.js';
@@ -17,7 +18,6 @@ const __dirname = path.dirname(__filename);
 // @desc    Get all events with filtering
 // @access  Public
 router.get('/', async (req, res) => {
-  console.log('Get events with query:', req.query);
   try {
     const {
       category,
@@ -156,32 +156,69 @@ router.get('/:id', async (req, res) => {
 
 // @route   POST /api/events
 // @desc    Create new event
-// @access  Private (requires phone verification)
-router.post('/', protect, requirePhoneVerification, async (req, res) => {
-  console.log('Create event with data:', req.body);
-  try {
+// @access  Private 
+router.post(
+  '/',
+  protect,
+  requirePhoneVerification,
+  asyncHandler(async (req, res) => {
+    let categoryId = req.body.category;
+
+    // 1. Resolve Category: If the frontend sent a slug/name instead of an ObjectId, look it up
+    if (categoryId && !mongoose.isValidObjectId(categoryId)) {
+      const categoryDoc = await Category.findOne({
+        $or: [{ slug: categoryId }, { name: categoryId }]
+      });
+      if (!categoryDoc) {
+        throw new AppError(`Invalid category provided: ${categoryId}`, 400);
+      }
+      categoryId = categoryDoc._id;
+    }
+
+    // 2. Process Location: If the frontend sends a string instead of the strict Location object
+    let locationData = req.body.location;
+    if (!locationData) {
+      locationData = { type: 'physical', venueName: 'TBD', address: 'TBD' };
+    } else if (typeof locationData === 'string') {
+      locationData = {
+        type: 'physical',
+        venueName: locationData,
+        address: locationData,
+        mapCoords: { lat: 0, lng: 0 }
+      };
+    } else if (!locationData.type) {
+      locationData.type = 'physical';
+      if (!locationData.address) locationData.address = 'TBD';
+      if (!locationData.venueName) locationData.venueName = 'TBD';
+    }
+
+    // 3. Format Event Data with fallback values for the logged-in user
     const eventData = {
       ...req.body,
-      createdBy: req.user._id,
-      status: 'pending',
-      isApproved: true, // Set to true for testing, change to false in production
+      category: categoryId, // Override with resolved Mongo ID
+      location: locationData,
+      organizer: req.user._id,
+      organizerName: req.body.organizerName || `${req.user.firstName} ${req.user.lastName}`,
+      organizerEmail: req.body.organizerEmail || req.user.email,
+      organizerPhone: req.body.organizerPhone || req.user.phoneNumber || 'Not provided',
+      status: 'pending', // Event requires admin approval by default
+      isApproved: false
     };
 
     const event = await Event.create(eventData);
 
+    // Add to user's created events list
+    req.user.eventsCreated.push(event._id);
+    req.user.stats.totalEventsCreated = req.user.eventsCreated.length;
+    await req.user.save({ validateBeforeSave: false });
+
     res.status(201).json({
-      success: true,
-      data: event,
-      message: 'Event created successfully and pending approval'
+      status: 'success',
+      message: 'Event created successfully and is pending approval',
+      data: { event }
     });
-  } catch (error) {
-    console.error('Create event error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Server error creating event'
-    });
-  }
-});
+  })
+);
 
 // @route   PUT /api/events/:id
 // @desc    Update event

@@ -14,9 +14,16 @@ const router = express.Router();
 import { validationResult } from 'express-validator';
 
 // Validation middleware
+// In event.routes.js
 const validate = (req, res, next) => {
   const errors = validationResult(req);
+  
+  // ADD THIS LOG HERE to see exactly what is failing
   if (!errors.isEmpty()) {
+    console.log('--- ❌ Validation Failed ---');
+    console.log('Incoming Body:', req.body); // This will now show up in your terminal
+    console.log('Errors:', errors.array());
+    
     return res.status(400).json({
       status: 'error',
       errors: errors.array()

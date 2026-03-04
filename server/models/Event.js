@@ -32,7 +32,7 @@ const eventSchema = new mongoose.Schema({
     maxlength: [300, 'Short description cannot exceed 300 characters']
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Category',
     required: [true, 'Category is required']
   },

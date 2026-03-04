@@ -1,46 +1,47 @@
+import axios from "axios";
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 class ApiClient {
   constructor() {
-    this.baseURL = API_URL;
-  }
+    // 1. Create an axios instance
+    this.client = axios.create({
+      baseURL: API_URL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  getToken() {
-    return localStorage.getItem('token');
+    // 2. Add a request interceptor to attach the token automatically
+    this.client.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
   }
 
   async request(endpoint, options = {}) {
-    const url = `${this.baseURL}${endpoint}`;
-    
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-      ...options,
-    };
-
-    const token = this.getToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    if (config.body && typeof config.body === 'object') {
-      config.body = JSON.stringify(config.body);
-    }
-
     try {
-      const response = await fetch(url, config);
-      const data = await response.json();
+      // Axios uses 'data' instead of 'body'
+      const response = await this.client({
+        url: endpoint,
+        method: options.method || 'GET',
+        data: options.body, // Mapping your existing 'body' to axios 'data'
+        params: options.params, // For query strings
+        ...options,
+      });
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Request failed');
-      }
-
-      return data;
+      return response.data;
     } catch (error) {
-      console.error('API Error:', error);
-      throw error;
+      // Axios stores server error messages in error.response.data
+      const message = error.response?.data?.message || error.message || 'Request failed';
+      console.error('API Error:', message);
+      throw new Error(message);
     }
   }
 
@@ -67,9 +68,7 @@ class ApiClient {
   }
 
   logout() {
-    return this.request('/auth/logout', {
-      method: 'POST',
-    });
+    return this.request('/auth/logout', { method: 'POST' });
   }
 
   getMe() {
@@ -78,8 +77,8 @@ class ApiClient {
 
   // Events
   getEvents(params = {}) {
-    const queryString = new URLSearchParams(params).toString();
-    return this.request(`/events?${queryString}`);
+    // Axios handles query params automatically if passed in the 'params' property
+    return this.request('/events', { params });
   }
 
   getEvent(slug) {
@@ -87,7 +86,7 @@ class ApiClient {
   }
 
   createEvent(eventData) {
-    console.log("Creating event with data:", eventData);
+    console.log('Creating event with data:', eventData);
     return this.request('/events', {
       method: 'POST',
       body: eventData,
@@ -102,27 +101,19 @@ class ApiClient {
   }
 
   deleteEvent(id) {
-    return this.request(`/events/${id}`, {
-      method: 'DELETE',
-    });
+    return this.request(`/events/${id}`, { method: 'DELETE' });
   }
 
   registerForEvent(id) {
-    return this.request(`/events/${id}/register`, {
-      method: 'POST',
-    });
+    return this.request(`/events/${id}/register`, { method: 'POST' });
   }
 
   unregisterFromEvent(id) {
-    return this.request(`/events/${id}/register`, {
-      method: 'DELETE',
-    });
+    return this.request(`/events/${id}/register`, { method: 'DELETE' });
   }
 
   toggleFavorite(id) {
-    return this.request(`/events/${id}/favorite`, {
-      method: 'POST',
-    });
+    return this.request(`/events/${id}/favorite`, { method: 'POST' });
   }
 
   // Categories
@@ -152,8 +143,7 @@ class ApiClient {
   }
 
   getUsers(params = {}) {
-    const queryString = new URLSearchParams(params).toString();
-    return this.request(`/admin/users?${queryString}`);
+    return this.request('/admin/users', { params });
   }
 
   updateUserRole(id, role) {
@@ -171,14 +161,11 @@ class ApiClient {
   }
 
   getAdminEvents(params = {}) {
-    const queryString = new URLSearchParams(params).toString();
-    return this.request(`/admin/events?${queryString}`);
+    return this.request('/admin/events', { params });
   }
 
   approveEvent(id) {
-    return this.request(`/admin/events/${id}/approve`, {
-      method: 'PUT',
-    });
+    return this.request(`/admin/events/${id}/approve`, { method: 'PUT' });
   }
 
   rejectEvent(id, reason) {
@@ -190,14 +177,11 @@ class ApiClient {
 
   // Reviewer
   getReviewQueue(params = {}) {
-    const queryString = new URLSearchParams(params).toString();
-    return this.request(`/reviewer/queue?${queryString}`);
+    return this.request('/reviewer/queue', { params });
   }
 
   reviewApproveEvent(id) {
-    return this.request(`/reviewer/events/${id}/approve`, {
-      method: 'PUT',
-    });
+    return this.request(`/reviewer/events/${id}/approve`, { method: 'PUT' });
   }
 
   reviewRejectEvent(id, reason) {
@@ -212,24 +196,18 @@ class ApiClient {
     const formData = new FormData();
     formData.append('image', file);
 
-    const url = `${this.baseURL}/upload/image`;
-    const token = this.getToken();
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : '',
-      },
-      body: formData,
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Upload failed');
+    try {
+      // Axios automatically sets the correct Multipart/Form-Data headers
+      const response = await this.client.post('/upload/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || 'Upload failed';
+      throw new Error(message);
     }
-
-    return data;
   }
 }
 

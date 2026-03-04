@@ -97,27 +97,40 @@ export default function CreateEvent() {
     }
   };
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      const eventData = {
-        ...formData,
-        tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-        price: formData.isFree ? null : { amount: parseFloat(formData.price), currency: formData.currency },
-        maxCapacity: formData.maxCapacity ? parseInt(formData.maxCapacity) : null,
-      };
+const handleSubmit = async () => {
+  setIsSubmitting(true);
+  try {
+    const eventData = {
+      ...formData,
+      // Ensure category is sent as the string the backend now expects
+      category: formData.category, 
+      
+      // Fix: Nest location data to match the backend validator
+      location: {
+        type: formData.locationType || 'physical',
+        venueName: formData.venueName,
+        address: formData.address,
+        // Add mapCoords if your schema marks them as required
+        mapCoords: {
+          lat: 0,
+          lng: 0
+        }
+      },
+      // Ensure numeric types for price and capacity
+      price: formData.isFree ? { amount: 0, currency: 'USD' } : { amount: Number(formData.price), currency: formData.currency },
+      maxCapacity: formData.maxCapacity ? Number(formData.maxCapacity) : null
+    };
 
-      console.log("Submitting event with data:", eventData);
-
-      const response = await api.createEvent(eventData);
-      toast.success('Event created successfully! It will be reviewed shortly.');
-      navigate(`/events/${response.data.event.slug}`);
-    } catch (error) {
-      toast.error(error.message || 'Failed to create event');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    const response = await api.createEvent(eventData);
+    toast.success('Event created successfully!');
+    navigate('/events');
+  } catch (error) {
+    console.error('Submission Error:', error.response?.data || error.message);
+    toast.error(error.message || 'Failed to create event');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
