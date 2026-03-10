@@ -18,7 +18,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const [featuredRes, upcomingRes, categoriesRes] = await Promise.all([
-          api.getEvents({ limit: 3 }),
+          api.getEvents({ featured: true, limit: 3 }),
           api.getEvents({ upcoming: true, limit: 6 }),
           // api.getCategories(),
         ]);

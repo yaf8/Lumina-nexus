@@ -42,7 +42,7 @@ export default function Events() {
 
       const response = await api.getEvents(params);
       setEvents(response.data.events);
-      setPagination(response.pagination);
+      setPagination(response.data.event.page);
     } catch (error) {
       console.error('Error fetching events:', error);
     } finally {
