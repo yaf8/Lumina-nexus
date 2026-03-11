@@ -11,8 +11,7 @@ export default function Settings() {
   const { currentLanguage, languages, changeLanguage, t } = useLanguage();
   const [activeTab, setActiveTab] = useState('profile');
 
-  
-  const tabs = [
+    const tabs = [
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'appearance', label: 'Appearance', icon: Moon },
