@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Plus } from 'lucide-react';
