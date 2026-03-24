@@ -5,7 +5,6 @@ import { User, Bell, Shield, Moon, Globe } from 'lucide-react';
 import { useAuth, useTheme, useLanguage } from '../context';
 import { toast } from 'sonner';
 
-
 export default function Settings() {
   const { user, updateProfile } = useAuth();
   const { theme, setTheme } = useTheme();
