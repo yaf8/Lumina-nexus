@@ -17,7 +17,6 @@ export default function Settings() {
     { id: 'appearance', label: 'Appearance', icon: Moon },
     { id: 'language', label: 'Language', icon: Globe },
   ];
-  
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8">
