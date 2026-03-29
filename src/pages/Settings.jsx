@@ -25,6 +25,7 @@ export default function Settings() {
           {t('profile.settings')}
         </h1>
 
+
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}
           <div className="w-full md:w-64 space-y-2">
