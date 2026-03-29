@@ -129,6 +129,7 @@ router.get('/slug/:slug', async (req, res) => {
 // @desc    Get single event by ID
 // @access  Public
 router.get('/:id', async (req, res) => {
+  console.log("Event Details!");
   try {
     const event = await Event.findById(req.params.id)
       .populate('createdBy', 'name avatar email phone')
