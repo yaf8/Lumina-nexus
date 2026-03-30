@@ -36,7 +36,6 @@ class ApiClient {
         ...options,
       });
 
-      
       return response.data;
     } catch (error) {
       // Axios stores server error messages in error.response.data
