@@ -36,8 +36,10 @@ export default function EventDetail() {
   const { t } = useLanguage();
 
   useEffect(() => {
+
     const fetchEvent = async () => {
       try {
+        console.log("Event details: ");
         const response = await api.getEvent(slug);
         setEvent(response.data.event);
       } catch (error) {
@@ -52,6 +54,7 @@ export default function EventDetail() {
     fetchEvent();
   }, [slug, navigate]);
 
+  
   const handleRegister = async () => {
     if (!isAuthenticated) {
       toast.error('Please login to register for this event');
