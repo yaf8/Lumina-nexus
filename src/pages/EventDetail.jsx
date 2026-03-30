@@ -53,7 +53,6 @@ export default function EventDetail() {
 
     fetchEvent();
   }, [slug, navigate]);
-
   
   const handleRegister = async () => {
     if (!isAuthenticated) {
