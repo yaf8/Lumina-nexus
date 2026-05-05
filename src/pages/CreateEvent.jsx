@@ -17,6 +17,7 @@ import { useAuth, useLanguage } from '../context';
 import { api } from '../utils/api';
 import { toast } from 'sonner';
 
+
 const steps = [
   { id: 'basic', label: 'Basic Info', icon: Calendar },
   { id: 'datetime', label: 'Date & Time', icon: Calendar },
